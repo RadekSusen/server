@@ -13,6 +13,19 @@ public class ClientThread extends Thread {
 
     @Override
     public void run() {
-        // Implementation of processing incoming communication from the telnet client
+        try {
+            var in = clientSocket.getInputStream();
+            var out = clientSocket.getOutputStream();
+            int pocet;
+            byte buffer[] = new byte[2048];
+            while ((pocet = in.read(buffer)) != -1) {
+                out.write(buffer, 0, pocet);
+                out.flush();
+
+            }
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
     }
 }
